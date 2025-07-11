@@ -1,0 +1,585 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// Variables for a modern, clean aesthetic
+$color-primary-dark: #2c3e50; // Dark text, main headings
+$color-primary-blue: #3498db; // Accent blue for interactive elements
+$color-accent-green: #2ecc71; // Green for success
+$color-danger-red: #e74c3c; // Red for delete/errors
+$color-background-light: #f7f9fc; // Soft, light page background
+$color-card-bg: #ffffff; // White for cards
+$color-border-subtle: #edf2f7; // Very light border for definition
+$color-text-light: #718096; // Lighter text for descriptions/subtitles
+$color-input-bg: #f0f4f8; // Background for input fields
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $color-background-light;
+  color: $color-primary-dark;
+  line-height: 1.6;
+}
+
+.services-management {
+  display: flex;
+  min-height: 100vh;
+  background-color: $color-background-light;
+
+  .main-content {
+    flex: 1;
+    padding: 2.5rem; // Generous padding
+    background: $color-card-bg;
+    border-radius: 16px; // Rounded corners for the main content area
+    margin: 1.5rem; // Margin around the main content
+    box-shadow: 0 8px 30px $shadow-md; // Soft, deep shadow
+    min-height: calc(100vh - 3rem); // Adjust height to account for margin
+
+    &.en {
+      margin-left: 280px; // Space for sidebar in LTR
+      margin-right: 1.5rem;
+      direction: ltr;
+    }
+
+    &.ar {
+      margin-right: 280px; // Space for sidebar in RTL
+      margin-left: 1.5rem;
+      direction: rtl;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap; // Allow wrapping on small screens
+    gap: 1rem;
+
+    .page-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem); // Responsive title size
+      font-weight: 700;
+      color: $color-primary-dark;
+      margin: 0;
+      position: relative; // For underline
+      padding-bottom: 0.5rem; // Space for underline
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px; // Underline width
+        height: 4px;
+        background-color: $color-primary-blue;
+        border-radius: 2px;
+      }
+    }
+
+    .action-buttons-group {
+      display: flex;
+      gap: 0.8rem; // Space between buttons
+      flex-wrap: wrap;
+    }
+
+    .add-btn {
+      background-color: $color-accent-green; // Green for 'add' actions
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem; // Generous padding
+      border-radius: 10px; // More rounded buttons
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba($color-accent-green, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        background-color: darken($color-accent-green, 8%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba($color-accent-green, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba($color-accent-green, 0.1);
+      }
+    }
+  }
+
+  .status-message {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px $shadow-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+
+    svg {
+      font-size: 1.2rem;
+    }
+  }
+
+  .loading-message {
+    background-color: lighten($color-primary-blue, 40%);
+    color: darken($color-primary-blue, 10%);
+    border: 1px solid $color-primary-blue;
+  }
+
+  .error-message {
+    background-color: lighten($color-danger-red, 30%);
+    color: darken($color-danger-red, 15%);
+    border: 1px solid $color-danger-red;
+  }
+
+  .success-message {
+    background-color: lighten($color-accent-green, 30%);
+    color: darken($color-accent-green, 15%);
+    border: 1px solid $color-accent-green;
+  }
+
+  .no-data-message {
+    background-color: lighten($color-text-light, 40%);
+    color: darken($color-text-light, 10%);
+    border: 1px solid lighten($color-text-light, 20%);
+    font-style: italic;
+  }
+
+  .services-section,
+  .sub-services-section {
+    margin-bottom: 3rem;
+    .section-title {
+      font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+      font-weight: 600;
+      color: $color-primary-dark;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.3rem;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px; // Shorter underline for sub-sections
+        height: 3px;
+        background-color: $color-primary-blue;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); // Larger cards
+    gap: 1.5rem; // More space between cards
+
+    .service-card {
+      background: $color-card-bg;
+      padding: 1.5rem; // More padding
+      border-radius: 12px;
+      box-shadow: 0 4px 15px $shadow-sm;
+      position: relative;
+      border: 2px solid $color-border-subtle; // Visible, subtle border
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px $shadow-md;
+        border-color: lighten($color-primary-blue, 20%); // Hint of blue on hover
+      }
+
+      &.selected {
+        border-color: $color-primary-blue; // Strong blue border when selected
+        box-shadow: 0 6px 20px rgba($color-primary-blue, 0.2); // Blue shadow when selected
+        transform: translateY(-2px); // Slight lift when selected
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 1.3rem; // Larger title
+        color: $color-primary-dark;
+        font-weight: 600;
+      }
+
+      .delete-main-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: transparent;
+        border: none;
+        color: $color-danger-red;
+        font-size: 1.4rem; // Larger icon
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0.5rem; // Larger click area
+        border-radius: 50%; // Circular button
+
+        &:hover {
+          color: darken($color-danger-red, 10%);
+          background-color: rgba($color-danger-red, 0.1); // Light background on hover
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .subservices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); // Wider sub-service cards
+    gap: 1.5rem; // Consistent gap
+
+    .subservice-card {
+      background: $color-card-bg;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px $shadow-sm;
+      position: relative;
+      border: 1px solid $color-border-subtle;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px $shadow-md;
+      }
+
+      h4 {
+        margin: 0 0 0.8rem 0;
+        font-size: 1.1rem;
+        color: $color-primary-dark;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0 0 0.8rem 0;
+        font-size: 0.95rem;
+        color: $color-text-light;
+      }
+
+      small {
+        font-size: 0.85rem;
+        color: $color-text-light;
+        
+        .publisher-link {
+          font-weight: 500;
+          color: $color-primary-blue; // Blue for clickable links
+          text-decoration: underline;
+          cursor: pointer;
+
+          &:hover {
+            color: darken($color-primary-blue, 10%);
+          }
+        }
+      }
+
+      .delete-subservice-btn {
+        position: absolute;
+        top: 0.8rem;
+        right: 0.8rem;
+        background: transparent;
+        border: none;
+        color: $color-danger-red;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0.4rem;
+        border-radius: 50%;
+
+        &:hover {
+          color: darken($color-danger-red, 10%);
+          background-color: rgba($color-danger-red, 0.1);
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6); // Darker overlay
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out; // Fade in effect
+
+    .modal-box {
+      background: $color-card-bg;
+      padding: 2rem; // More padding
+      border-radius: 16px; // More rounded
+      width: clamp(300px, 90%, 450px); // Responsive width
+      box-shadow: 0 10px 30px $shadow-lg; // Stronger shadow
+      animation: slideIn 0.3s ease-out; // Slide in effect
+      display: flex; /* Added flex to modal-box */
+      flex-direction: column; /* Stack contents vertically */
+      gap: 1rem; /* Adjusted gap between elements inside modal for compactness */
+
+
+      h2 {
+        font-size: 1.5rem;
+        color: $color-primary-dark;
+        margin-bottom: 0; /* Adjusted margin as gap handles spacing */
+        text-align: center;
+      }
+
+      input[type='text'] {
+        width: 100%;
+        padding: 0.7rem 1rem; /* Made input smaller */
+        font-size: 0.95rem; /* Smaller font size for input */
+        border: 1px solid $color-border-subtle;
+        border-radius: 10px;
+        outline: none;
+        background-color: $color-input-bg;
+        color: $color-primary-dark;
+        transition: all 0.3s ease;
+
+        &:focus {
+          border-color: $color-primary-blue;
+          box-shadow: 0 0 0 3px rgba($color-primary-blue, 0.2);
+        }
+
+        &::placeholder {
+          color: $color-text-light;
+        }
+      }
+
+      .modal-actions {
+        margin-top: 0.5rem; /* Slightly more space for buttons from input */
+        display: flex;
+        justify-content: flex-end; // Align buttons to the right
+        gap: 0.8rem; // Space between buttons
+        width: 100%; /* Ensure actions div takes full width */
+      }
+
+      button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        /* Confirm button - now blue */
+        &.confirm-btn { 
+          background-color: $color-primary-blue; /* Changed to blue */
+          color: white;
+          box-shadow: 0 2px 8px rgba($color-primary-blue, 0.2); /* Changed shadow to blue */
+
+          &:hover {
+            background-color: darken($color-primary-blue, 8%); /* Darken blue on hover */
+            transform: translateY(-2px);
+          }
+        }
+
+        &.cancel-btn { // Cancel button - remains gray
+          background-color: $color-text-light;
+          color: white;
+          box-shadow: 0 2px 8px rgba($color-text-light, 0.2);
+
+          &:hover {
+            background-color: darken($color-text-light, 8%);
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+}
+
+// RTL specific adjustments
+[dir="rtl"] {
+  .services-management {
+    .main-content {
+      .header {
+        .page-title {
+          &::after {
+            left: auto;
+            right: 0; // Align underline to the right
+          }
+        }
+      }
+    }
+
+    .services-section,
+    .sub-services-section {
+      .section-title {
+        &::after {
+          left: auto;
+          right: 0; // Align underline to the right
+        }
+      }
+    }
+
+    .service-card {
+      .delete-main-btn {
+        right: auto;
+        left: 1rem; // Position on left for RTL
+      }
+    }
+
+    .subservice-card {
+      .delete-subservice-btn {
+        right: auto;
+        left: 0.8rem; // Position on left for RTL
+      }
+      .publisher-link {
+        // No specific RTL adjustments needed if text direction is handled by main-content
+      }
+    }
+
+    .modal-backdrop .modal-box {
+      h2 {
+        // No specific RTL adjustments needed for centered text
+      }
+      .modal-actions {
+        justify-content: flex-start; // Align buttons to the left
+      }
+      button:first-of-type {
+        margin-right: 0;
+        margin-left: 0.8rem; // Adjust margin between buttons
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 1024px) {
+  .services-management {
+    .main-content {
+      padding: 1.8rem;
+      margin: 1rem;
+      min-height: calc(100vh - 2rem); // Adjust for smaller margins
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .services-management {
+    flex-direction: column; // Stack sidebar and main content
+
+    .main-content {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      border-radius: 0; // Remove border-radius on main content for full width
+      min-height: auto; // Allow content to dictate height
+      padding-top: 4rem; // Add padding for fixed header/sidebar if needed
+      box-shadow: none; // Remove shadow to blend with body
+    }
+
+    .header {
+      flex-direction: column; // Stack header elements
+      align-items: flex-start; // Align to start
+      .page-title {
+        text-align: center; // Center title for mobile
+        width: 100%;
+        &::after {
+          left: 50%;
+          transform: translateX(-50%); // Center underline
+        }
+      }
+      .action-buttons-group {
+        width: 100%;
+        justify-content: center; // Center buttons
+      }
+    }
+
+    .services-grid,
+    .subservices-grid {
+      grid-template-columns: 1fr; // Single column on mobile
+    }
+
+    .services-section,
+    .sub-services-section {
+      .section-title {
+        text-align: center;
+        &::after {
+          left: 50%;
+          transform: translateX(-50%); // Center underline
+        }
+      }
+    }
+
+    .service-card,
+    .subservice-card {
+      padding: 1.2rem; // Slightly less padding
+      h3, h4 {
+        font-size: 1.1rem;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .services-management {
+    .main-content {
+      padding: 1rem; // Even less padding on small phones
+      padding-top: 3.5rem;
+    }
+    .header {
+      .page-title {
+        font-size: 1.6rem;
+      }
+      .add-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+    .status-message {
+      font-size: 0.9rem;
+      padding: 0.8rem;
+      svg {
+        font-size: 1rem;
+      }
+    }
+    .modal-backdrop .modal-box {
+      padding: 1.5rem;
+      h2 {
+        font-size: 1.3rem;
+      }
+      input[type='text'] {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+      .modal-actions button {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+// Animations for modals and errors
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}

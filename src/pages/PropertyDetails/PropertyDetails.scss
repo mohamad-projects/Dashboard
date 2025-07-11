@@ -1,0 +1,785 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+// Modern & Refined Color Palette
+$color-primary-dark: #2C3E50; // Dark text, main headings
+$color-primary-blue: #3498db; // Accent blue for icons, links, active states
+$color-secondary-light: #f7f9fc; // Soft background
+$color-card-bg: #ffffff; // Pure white for cards
+$color-border-subtle: #e0e6ed; // Very light, refined border color
+$color-text-medium: #7f8c8d; // For labels and secondary text
+$color-text-dark: #34495e; // Stronger text for values
+$color-price: #e74c3c; // Red for price
+$color-whatsapp: #25d366;
+$color-telegram: #0088cc;
+$color-background-light: white;
+// Shadows for depth
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: $color-secondary-light;
+  color: $color-text-dark;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.property-details-page {
+  padding: 2.5rem 5%; // More generous padding
+  min-height: 100vh;
+  box-sizing: border-box; // Include padding in element's total width/height
+
+  .status-message {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border-radius: 12px;
+    margin: 3rem auto;
+    max-width: 600px;
+    box-shadow: 0 4px 15px $shadow-md;
+  }
+
+  .loading-message {
+    background-color: lighten($color-primary-blue, 40%);
+    color: darken($color-primary-blue, 10%);
+    border: 1px solid $color-primary-blue;
+  }
+
+  .error-message {
+    background-color: lighten($color-price, 30%);
+    color: darken($color-price, 15%);
+    border: 1px solid $color-price;
+  }
+
+  .back-button {
+    background: $color-primary-dark; // Darker, premium button
+    color: white;
+    border: none;
+    padding: 0.9rem 1.8rem; // More padding
+    border-radius: 8px; // Slightly more rounded
+    margin-bottom: 2.5rem; // More space below button
+    cursor: pointer;
+    font-weight: 600; // Bolder text
+    transition: all 0.3s ease;
+    display: inline-flex; // Use inline-flex for better alignment
+    align-items: center;
+    gap: 0.6rem; // More space between icon and text
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); // Subtle shadow
+
+    &:hover {
+      background: lighten($color-primary-dark, 15%); // Lighter hover
+      transform: translateY(-3px); // Lift effect
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15); // Deeper shadow on hover
+    }
+
+    svg {
+      font-size: 1.1rem; // Adjust icon size
+    }
+  }
+
+  .property-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr; // Left section wider
+    gap: 3.5rem; // More space between columns
+    max-width: 1400px; // Wider overall content
+    margin: 0 auto;
+  }
+
+  .left-section,
+  .right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; // Consistent gap between cards/sections
+  }
+}
+
+// Card-like styling for sections
+.card-section {
+  background: $color-card-bg;
+  padding: 2rem; // Consistent internal padding
+  border-radius: 12px; // Consistent rounded corners
+  box-shadow: 0 4px 15px $shadow-sm; // Subtle shadow
+  border: 1px solid $color-border-subtle; // Key: very subtle border
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px); // Gentle lift on hover
+    box-shadow: 0 8px 25px $shadow-md; // More pronounced shadow on hover
+  }
+
+  h2 {
+    font-size: 1.8rem; // Larger headings
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    color: $color-primary-dark;
+    font-weight: 600;
+    position: relative; // For underline effect
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 60px; // Underline width
+      height: 3px;
+      background-color: $color-primary-blue; // Blue underline
+      border-radius: 2px;
+    }
+
+    .section-icon {
+      margin-right: 0.7rem; // Space icon from text
+      color: $color-primary-blue;
+      font-size: 1.5rem;
+    }
+  }
+
+  p {
+    line-height: 1.7;
+    color: $color-text-dark;
+    margin: 0;
+  }
+}
+
+.image-gallery {
+  @extend .card-section; // Inherit general card styles but override specific ones
+  padding: 0; // Remove internal padding as content has its own
+  overflow: hidden; // Ensure images stay within bounds
+  border: none; // No border for image gallery as it's meant to be a showcase
+  box-shadow: 0 8px 30px $shadow-md; // Stronger shadow for main visual element
+
+  &:hover {
+    transform: none; // No lift on gallery hover, only for main image
+    box-shadow: 0 12px 40px $shadow-lg;
+  }
+
+  .main-image-container {
+    position: relative;
+    height: 550px; // Taller main image
+    overflow: hidden; // Ensures hover effect on image is smooth
+    margin-bottom: 1rem;
+    border-radius: 12px; // Match gallery border-radius
+    
+    img.main-image { // Target the image specifically
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease; // Slower, smoother zoom
+    }
+
+    &:hover img.main-image {
+      transform: scale(1.05); // More pronounced zoom on main image hover
+    }
+
+    .image-counter {
+      position: absolute;
+      bottom: 20px; // Position at bottom
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 25px; // Pill shape
+      font-size: 0.95rem;
+      font-weight: 500;
+      z-index: 10; // Ensure it's above other elements
+    }
+
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      width: 55px; // Larger buttons
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      color: $color-primary-dark;
+      font-size: 1.3rem; // Larger icon
+
+      &:hover {
+        background: $color-primary-blue; // Blue hover
+        color: white;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      }
+
+      &.prev {
+        left: 20px;
+      }
+
+      &.next {
+        right: 20px;
+      }
+    }
+  }
+
+  .thumbnails {
+    display: flex;
+    gap: 1rem; // More space between thumbnails
+    overflow-x: auto;
+    padding: 0.5rem 0; // Add padding for scrollbar visibility
+    scrollbar-width: thin;
+    scrollbar-color: $color-primary-blue $color-background-light; // Custom scrollbar color
+
+    &::-webkit-scrollbar {
+      height: 8px; // Thicker scrollbar
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-primary-blue;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $color-border-subtle;
+    }
+
+    .thumbnail-item {
+      width: 120px; // Larger thumbnails
+      height: 80px;
+      border-radius: 10px; // Slightly more rounded
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      flex-shrink: 0;
+      border: 3px solid transparent; // Thicker border for active state
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &.active {
+        border-color: $color-primary-blue; // Blue active border
+        transform: scale(1.08); // More prominent scale
+      }
+
+      &:hover {
+        transform: scale(1.08);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.4); // Darker overlay
+        transition: all 0.3s ease;
+      }
+
+      &.active::after, &:hover::after {
+        background: rgba(0,0,0,0); // Remove overlay on active/hover
+      }
+    }
+  }
+}
+
+.details-grid-container { // New wrapper class for the details grid
+  @extend .card-section;
+  padding: 2.5rem; // More padding for the grid section
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); // Responsive columns
+  gap: 1.5rem; // More space between items
+
+  .detail-item {
+    // This is the line causing the error based on original code.
+    // The previous variable names used `$light-bg` but this has been changed to `$color-background-light`.
+    // It should now correctly reference `$color-background-light` and `lighten()` should work.
+    background: lighten($color-secondary-light, 2%); // Use a variation of a defined color
+    padding: 1.5rem; // More padding
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 8px $shadow-sm; // Subtle shadow
+    border: 1px solid $color-border-subtle; // Consistent border
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px); // Gentle lift
+      box-shadow: 0 5px 15px $shadow-md; // More pronounced shadow
+    }
+
+    .icon {
+      font-size: 1.8rem; // Larger icons
+      color: $color-primary-blue;
+    }
+
+    .label {
+      font-size: 0.95rem;
+      color: $color-text-medium;
+      font-weight: 500;
+    }
+
+    .value {
+      font-weight: 700;
+      font-size: 1.3rem; // Larger values
+      color: $color-primary-dark;
+    }
+  }
+}
+
+.price-info-card {
+  @extend .card-section; // Inherit card styles
+  text-align: center;
+  position: relative; // For property type badge
+  padding: 2.5rem; // More padding for this prominent card
+
+  .main-title {
+    font-size: clamp(1.8rem, 3vw, 2.5rem); // Responsive title
+    color: $color-primary-dark;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .price-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    .price {
+      font-size: clamp(2.5rem, 5vw, 3.5rem); // Larger price
+      font-weight: 700;
+      color: $color-price;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-label {
+      font-size: 1.1rem;
+      color: $color-text-medium;
+      font-weight: 500;
+    }
+  }
+
+  .property-type-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background-color: $color-primary-blue; // Blue badge
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba($color-primary-blue, 0.2);
+  }
+}
+
+.agency-info-box {
+  @extend .card-section;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; // More space
+  border-left: 6px solid $color-primary-blue; // Thicker, more prominent accent border
+  padding: 2rem; // Consistent padding
+
+  .agency-icon-wrapper { // Wrapper for styling the icon background
+    background-color: lighten($color-primary-blue, 45%); // Light blue background
+    color: $color-primary-blue;
+    font-size: 2.8rem; // Larger icon
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba($color-primary-blue, 0.1);
+  }
+
+  .agency-details {
+    h3 {
+      margin: 0;
+      font-size: 1.4rem; // Larger heading
+      color: $color-primary-dark;
+      font-weight: 600;
+    }
+
+    .agency-name {
+      margin: 0.5rem 0;
+      font-size: 1.05rem;
+      color: $color-text-dark;
+    }
+
+    .agency-phone {
+      font-size: 1rem;
+      color: $color-text-medium;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      svg {
+        color: $color-primary-blue;
+      }
+    }
+  }
+}
+
+.amenities-section {
+  @extend .card-section;
+  
+  .amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); // Slightly wider items
+    gap: 1rem; // Consistent gap
+
+    .amenity-item {
+      // This is the line causing the error based on original code.
+      // The previous variable names used `$light-bg` but this has been changed to `$color-background-light`.
+      background: lighten($color-background-light, 2%); // Use a variation of a defined color
+      padding: 0.8rem 1.2rem; // More padding
+      border-radius: 25px; // Pill shape
+      text-align: center;
+      font-size: 0.95rem;
+      color: $color-primary-dark;
+      font-weight: 500;
+      border: 1px solid $color-border-subtle; // Subtle border
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: lighten($color-primary-blue, 40%);
+        color: darken($color-primary-blue, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba($color-primary-blue, 0.1);
+      }
+    }
+  }
+}
+
+.map-section {
+  @extend .card-section;
+
+  .leaflet-container {
+    border: 1px solid $color-border-subtle; // Border for the map itself
+    border-radius: 10px; // Match card radius
+  }
+}
+
+.contact-seller-section { // New wrapper class for contact buttons
+  @extend .card-section;
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap; // Allow wrapping on small screens
+    gap: 1rem; // Consistent gap between buttons
+    margin-top: 1.5rem; // More space
+  }
+
+  .contact-button {
+    flex: 1; // Take equal space
+    min-width: 150px; // Minimum width before wrapping
+    padding: 1rem 1.5rem; // More padding
+    border: none;
+    border-radius: 8px; // Consistent rounded corners
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem; // More space between icon and text
+    font-size: 1rem;
+    text-decoration: none; // Ensure links don't have underlines
+
+    &.whatsapp-link {
+      background-color: $color-whatsapp;
+      color: white;
+      box-shadow: 0 4px 15px rgba($color-whatsapp, 0.3);
+
+      &:hover {
+        background-color: darken($color-whatsapp, 10%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba($color-whatsapp, 0.4);
+      }
+    }
+
+    &.telegram-link {
+      background-color: $color-telegram;
+      color: white;
+      box-shadow: 0 4px 15px rgba($color-telegram, 0.3);
+
+      &:hover {
+        background-color: darken($color-telegram, 10%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba($color-telegram, 0.4);
+      }
+    }
+
+    .contact-icon {
+      font-size: 1.3rem; // Larger icons
+    }
+  }
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  .property-details-page {
+    direction: rtl; // Apply RTL direction to the whole page
+
+    .back-button {
+      flex-direction: row-reverse; // Reverse icon and text
+      svg {
+        margin-left: 0.6rem;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .property-content {
+    .left-section {
+      padding-right: 0;
+      padding-left: 3rem; // Adjust padding for RTL
+    }
+  }
+
+  .main-image-container {
+    .image-counter {
+      left: 20px;
+      right: auto;
+      transform: translateX(0); // Remove horizontal transform
+    }
+
+    .nav-button {
+      &.prev {
+        right: 20px;
+        left: auto;
+      }
+
+      &.next {
+        left: 20px;
+        right: auto;
+      }
+    }
+  }
+
+  .card-section h2::after {
+    left: auto;
+    right: 0; // Align underline to the right
+  }
+
+  .section-icon {
+    margin-right: 0;
+    margin-left: 0.7rem; // Space icon from text for RTL
+  }
+
+  .agency-info-box {
+    border-left: none;
+    border-right: 6px solid $color-primary-blue; // Border on right for RTL
+    .agency-icon-wrapper {
+      // No change needed if icon is symmetric
+    }
+  }
+
+  .agency-details p svg {
+    margin-left: 0.5rem;
+    margin-right: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .property-details-page {
+    .property-content {
+      grid-template-columns: 1fr !important; // Single column layout
+      gap: 3rem;
+    }
+
+    .left-section {
+      padding-right: 0; // Remove specific padding for flex-direction: column
+      align-items: center; // Center content in single column
+    }
+
+    .right-section {
+      align-items: center; // Center content in single column
+    }
+
+    .image-gallery, .details-grid-container, .location-section, .description-section,
+    .price-info-card, .agency-info-box, .amenities-section, .map-section, .contact-seller-section {
+      width: 100%; // Take full width of parent column
+      max-width: 700px; // Cap width for larger screens
+    }
+
+    .image-gallery .main-image-container {
+      height: 450px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .property-details-page {
+    padding: 1.5rem 4%; // Reduce padding
+    .back-button {
+      margin-bottom: 1.5rem;
+      padding: 0.7rem 1.2rem;
+    }
+    .image-gallery .main-image-container {
+      height: 380px;
+      .nav-button {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+      }
+    }
+    .thumbnails {
+      gap: 0.6rem;
+      .thumbnail-item {
+        width: 100px;
+        height: 70px;
+      }
+    }
+    .card-section {
+      padding: 1.5rem;
+      h2 {
+        font-size: 1.4rem;
+        &::after {
+          bottom: -5px;
+          width: 50px;
+          height: 2px;
+        }
+      }
+    }
+    .details-grid {
+      grid-template-columns: 1fr 1fr !important; // Two columns
+      gap: 1rem;
+    }
+    .detail-item {
+      padding: 1rem;
+      .icon { font-size: 1.4rem; }
+      .label { font-size: 0.9rem; }
+      .value { font-size: 1.1rem; }
+    }
+    .price-info-card {
+      padding: 1.8rem;
+      .main-title { font-size: 1.8rem; }
+      .price { font-size: 2.5rem; }
+      .price-label { font-size: 1.0rem; } // Changed to 1.0rem for consistency
+      .property-type-badge {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+    .agency-info-box {
+      padding: 1.5rem;
+      gap: 1rem;
+      .agency-icon-wrapper {
+        font-size: 2.2rem;
+        width: 60px;
+        height: 60px;
+      }
+      .agency-details h3 { font-size: 1.2rem; }
+      .agency-details p { font-size: 0.9rem; }
+    }
+    .amenities-grid {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.6rem;
+    }
+    .amenity-item {
+      padding: 0.5rem 0.8rem;
+      font-size: 0.85rem;
+    }
+    .contact-links {
+      flex-direction: column; // Stack buttons vertically
+      gap: 0.8rem;
+    }
+    .contact-button {
+      padding: 0.8rem 1.2rem;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .property-details-page {
+    padding: 1rem 3%;
+    .back-button {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
+    .image-gallery .main-image-container {
+      height: 280px;
+      .nav-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        &:hover { transform: translateY(-50%) scale(1.05); }
+      }
+      .image-counter {
+        bottom: 10px;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+      }
+    }
+    .thumbnails {
+      gap: 0.5rem;
+      .thumbnail-item {
+        width: 70px;
+        height: 50px;
+        border-width: 2px;
+        &:hover { transform: scale(1.05); }
+        &.active { transform: scale(1.05); }
+      }
+    }
+    .details-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .card-section {
+      padding: 1.2rem;
+    }
+    .price-info-card {
+      padding: 1.5rem;
+      .main-title { font-size: 1.5rem; }
+      .price { font-size: 2rem; }
+    }
+    .agency-info-box {
+      padding: 1.2rem;
+      .agency-icon-wrapper {
+        font-size: 1.8rem;
+        width: 50px;
+        height: 50px;
+      }
+    }
+    .amenities-grid {
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    .amenity-item {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+    }
+    .contact-button {
+      font-size: 0.9rem;
+      padding: 0.7rem 1rem;
+    }
+  }
+}
+
+// Keyframe for shake animation (ensure this is at the end or in a common utilities file)
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-5px);
+  }
+  40%, 80% {
+    transform: translateX(5px);
+  }
+}

@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+// Modern & Refined Color Palette
+$color-primary-dark: #2c3e50; // Dark text, main headings
+$color-primary-blue: #3498db; // Accent blue for interactive elements
+$color-accent-green: #2ecc71; // Green for success
+$color-danger-red: #e74c3c; // Red for delete/errors
+$color-background-light: #f7f9fc; // Soft, light page background
+$color-card-bg: #ffffff; // White for cards
+$color-border-subtle: #edf2f7; // Very light border for definition
+$color-text-light: #718096; // Lighter text for descriptions/subtitles
+$color-input-bg: #e9eff6; // Slightly darker input/background for contrast
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+$color-text-dark: #333333; // More defined dark text color
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $color-background-light;
+  color: $color-primary-dark;
+  line-height: 1.6;
+}
+
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: $color-background-light;
+
+  /* Sidebar spacing adjustments */
+  &.ltr .main-content {
+    margin-left: 280px;
+    margin-right: 1.5rem;
+    direction: ltr;
+  }
+
+  &.rtl .main-content {
+    margin-right: 280px;
+    margin-left: 1.5rem;
+    direction: rtl;
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 2.5rem;
+    background: $color-card-bg;
+    border-radius: 16px;
+    margin: 1.5rem;
+    box-shadow: 0 8px 30px $shadow-md;
+    min-height: calc(100vh - 3rem);
+    max-width: 1400px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .dashboard-page-title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: $color-primary-dark;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 5px;
+      background-color: $color-primary-blue;
+      border-radius: 2.5px;
+    }
+
+    .title-icon {
+      color: $color-primary-blue;
+      font-size: 1.5em;
+    }
+  }
+
+  /* Mini Stats Section - Retaining elegant look */
+  .mini-stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+
+    .mini-stat-card {
+      background: $color-card-bg; // Solid white
+      border-radius: 12px; // Slightly less rounded
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px $shadow-sm; // Simple, clean shadow
+      border: 1px solid $color-border-subtle;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px $shadow-md; // More pronounced shadow on hover
+        border-color: $color-primary-blue; // Blue border on hover
+      }
+
+      .stat-icon {
+        font-size: 2.5rem; // Slightly smaller icons
+        color: $color-primary-blue;
+        margin-bottom: 0.8rem;
+      }
+
+      .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: $color-primary-dark;
+        margin-bottom: 0.3rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: $color-text-light;
+        text-align: center;
+      }
+    }
+  }
+
+  /* Quick Access Section (Main Grid) - NEW CLEAN & MODERN DESIGN */
+  .quick-access-section {
+    margin-bottom: 3rem;
+
+    .section-subtitle {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: $color-primary-dark;
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 0.5rem;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+        height: 4px;
+        background-color: $color-primary-blue;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .stats-grid { /* This is now specifically for the newly styled Quick Access cards */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem; // Clean, consistent gap
+    margin-bottom: 0;
+
+    .card {
+      // Clean, modern card design
+      background: $color-card-bg; // Pure white background
+      border-radius: 12px; // Consistent rounded corners
+      padding: 1.8rem; // Generous padding
+      text-align: center;
+      box-shadow: 0 5px 20px rgba($color-primary-blue, 0.1); // Subtle blue-tinted shadow
+      transition: all 0.3s ease; // Smooth transition
+      cursor: pointer;
+      border: 1px solid $color-border-subtle; // Light, subtle border
+
+      /* Removed .card-icon styles as icons are removed from JSX */
+      /* If you want to add smaller icons later, define them here */
+
+      p {
+        font-size: 1.15rem; // Slightly larger text for emphasis
+        font-weight: 600; // Bold text
+        color: $color-primary-dark; // Dark text for readability
+        margin: 0; // Remove default paragraph margin
+        // Add padding-top if you decide to re-add small icons above the text
+        // padding-top: 1rem;
+      }
+
+      &:hover {
+        transform: translateY(-8px); // Lift effect
+        box-shadow: 0 12px 35px rgba($color-primary-blue, 0.2); // Deeper blue shadow on hover
+        border-color: $color-primary-blue; // Solid blue border on hover
+      }
+    }
+  }
+}
+
+/* RTL Adjustments */
+.admin-dashboard.rtl {
+  .dashboard-page-title,
+  .quick-access-section .section-subtitle {
+    flex-direction: row-reverse;
+    .title-icon {
+      margin-left: 1rem;
+      margin-right: 0;
+    }
+    &::after {
+      left: auto;
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
+  .mini-stats-section {
+    // No specific RTL flex-direction needed, items are centered
+  }
+  .stats-grid {
+    // Grid handles layout automatically
+    .card {
+      // No specific RTL adjustments needed for text-only cards
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .admin-dashboard {
+    .main-content {
+      padding: 2rem;
+      margin: 1rem;
+    }
+    .dashboard-page-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .mini-stats-section {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      .mini-stat-card {
+        padding: 1.2rem 0.8rem;
+        .stat-icon { font-size: 2.2rem; }
+        .stat-value { font-size: 1.6rem; }
+        .stat-label { font-size: 0.85rem; }
+      }
+    }
+    .quick-access-section .section-subtitle {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .stats-grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem; // Slightly smaller gap
+      .card {
+        padding: 1.5rem; // Adjusted padding
+        p { font-size: 1.05rem; } // Adjusted text size
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column;
+
+    .main-content {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      border-radius: 0;
+      min-height: auto;
+      padding-top: 4rem;
+      box-shadow: none;
+    }
+
+    .dashboard-page-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      .title-icon { font-size: 1.5em; }
+    }
+
+    .mini-stats-section {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      .mini-stat-card {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        .stat-icon { margin-bottom: 0; }
+        .stat-value { margin-bottom: 0; }
+      }
+      .admin-dashboard.rtl & .mini-stat-card {
+        flex-direction: row-reverse;
+      }
+    }
+
+    .quick-access-section .section-subtitle {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr; // Single column on mobile
+      gap: 1rem;
+      .card {
+        padding: 1.2rem; // Adjusted padding
+        p { font-size: 1rem; }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard {
+    .main-content {
+      padding: 1rem;
+      padding-top: 3.5rem;
+    }
+    .dashboard-page-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      .title-icon { font-size: 1.2em; }
+    }
+    .mini-stats-section {
+      .mini-stat-card {
+        .stat-icon { font-size: 1.8rem; }
+        .stat-value { font-size: 1.4rem; }
+        .stat-label { font-size: 0.75rem; }
+      }
+    }
+    .quick-access-section .section-subtitle {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .stats-grid .card {
+      padding: 1rem;
+      p { font-size: 0.9rem; }
+    }
+  }
+}

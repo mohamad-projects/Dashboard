@@ -1,0 +1,180 @@
+
+.contact-page {
+  background-color:  #f5f5f5;
+  min-height: 100vh;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.contact-title {
+  text-align: center;
+  color: rgb(69, 67, 67);
+  margin-bottom: 3rem;
+  font-size: 2.2rem;
+}
+
+.contact-sections {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 3rem;
+  align-items: start;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vertical-divider {
+  background: #000;
+  width: 1px;
+  height: 100%;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.left-container {
+  .company-card {
+    background:  #f5f5f5;
+    border-radius: 12px;
+    overflow: hidden;
+    
+    .company-image {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+    
+    .company-details {
+      padding: 2rem;
+      
+      h3 {
+        color: rgb(19, 88, 158);
+        margin-bottom: 1.5rem;
+        font-size: 1.4rem;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 1rem;
+      }
+      
+      .info-line {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+        
+        span {
+          font-weight: 600;
+          color: rgb(29, 91, 177);
+          min-width: 80px;
+        }
+        
+        p {
+          color: #000000;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.right-container {
+  .contact-form {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 2rem;
+    
+    .form-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.8rem;
+      
+      label {
+        font-weight: 600;
+        color: $text-color;
+        min-width: 100px;
+      }
+      
+      .form-input {
+        flex: 1;
+        padding: 0.8rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 50px;
+        
+        &:focus {
+          border-color: $primary-color;
+          box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+        }
+      }
+      
+      .form-textarea {
+        flex: 1;
+        height: 120px;
+        padding: 0.8rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        resize: vertical;
+      }
+    }
+  }
+}
+
+.send-button {
+  background: rgb(9, 9, 9);
+  color: $white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 70%;
+  margin-left: 150px;
+  transition: $transition;
+  
+  &:hover {
+    background:rgb(95, 98, 99);
+    transform: translateY(-2px);
+  }
+}
+
+.contact-note {
+  text-align: center;
+  margin-top: 3rem;
+  color: #718096;
+  line-height: 1.6;
+}
+
+[dir="rtl"] {
+  .contact-sections {
+    direction: rtl;
+  }
+  
+  .info-line, .form-row {
+    flex-direction: row-reverse;
+  }
+  
+  .company-details h3 {
+    text-align: right;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-sections {
+    gap: 2rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start !important;
+    
+    label {
+      min-width: auto !important;
+    }
+  }
+}

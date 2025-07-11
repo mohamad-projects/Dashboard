@@ -1,0 +1,443 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Variables for a modern aesthetic
+$primary-blue: #3498db;
+$accent-green: #2ecc71;
+$warm-orange: #e67e22;
+$danger-red: #e74c3c;
+$text-dark: #2c3e50;
+$text-light: #7f8c8d;
+$background-light: #f4f6f9;
+$card-bg: #ffffff;
+$border-light: #e0e0e0;
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: $background-light;
+  color: $text-dark;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $text-dark;
+  font-weight: 600;
+  margin-top: 0;
+}
+
+.profile-page-wrapper {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app-container.profile-container {
+  flex: 1;
+  max-width: 1200px; // Slightly adjust max-width for balance
+  margin: 0 auto;
+  padding: 2.5rem; // Use rem for consistent padding
+  box-sizing: border-box;
+  transition: padding 0.3s ease-in-out;
+
+  &.en {
+    padding-left: 280px; // Accommodate sidebar width
+  }
+
+  &.ar {
+    padding-right: 280px; // Accommodate sidebar width for RTL
+  }
+
+  @media (max-width: 992px) {
+    padding-left: 1.5rem !important; // Less padding on smaller screens
+    padding-right: 1.5rem !important;
+    padding-top: 4rem; // Account for potential fixed mobile sidebar
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 2rem; // Adjust if sidebar changes position
+  }
+}
+
+// Global status/error/success messages
+.status-message {
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px $shadow-sm;
+}
+
+.loading-message {
+  background-color: lighten($primary-blue, 40%);
+  color: darken($primary-blue, 10%);
+  border: 1px solid $primary-blue;
+}
+
+.error-message {
+  background-color: lighten($danger-red, 30%);
+  color: darken($danger-red, 15%);
+  border: 1px solid $danger-red;
+}
+
+.success-message {
+  background-color: lighten($accent-green, 30%);
+  color: darken($accent-green, 15%);
+  border: 1px solid $accent-green;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  color: $text-light;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.card-section {
+  background: $card-bg;
+  padding: 2rem; // Consistent padding for card sections
+  border-radius: 12px; // Modern rounded corners
+  box-shadow: 0 5px 20px $shadow-md; // More prominent shadow
+  margin-bottom: 2rem; // Consistent margin between sections
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px); // Subtle lift on hover
+    box-shadow: 0 8px 25px $shadow-lg; // Deeper shadow on hover
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 50px;
+      height: 3px;
+      background-color: $primary-blue;
+      border-radius: 2px;
+      transition: width 0.3s ease; // Smooth width transition
+    }
+  }
+}
+
+/* Profile Header */
+.profile-header {
+  @extend .card-section; // Inherit card styles
+  text-align: center;
+  padding: 2.5rem; // More vertical padding for header
+  margin-top: 2rem; // Space from top
+
+  h1 {
+    font-size: 2.8rem; // Larger, bolder name
+    margin-bottom: 0.5rem;
+    color: $primary-blue;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -10px;
+      width: 100px;
+      height: 4px;
+      background-color: $accent-green;
+      border-radius: 2px;
+    }
+  }
+}
+
+.user-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  margin-top: 1.5rem;
+  color: $text-light;
+  font-size: 1rem;
+  flex-wrap: wrap; // Allow wrapping on small screens
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 0.4rem 1rem;
+  border-radius: 20px; // Pill shape
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+
+  &.inactive {
+    background-color: $warm-orange;
+    color: white;
+  }
+
+  &.active {
+    background-color: $accent-green;
+    color: white;
+  }
+
+  &.pending {
+    background-color: $primary-blue;
+    color: white;
+  }
+
+  &.default { // For "Unknown" status
+    background-color: $text-light;
+    color: white;
+  }
+}
+
+/* Contact Section */
+.contact-section {
+  .contact-details p {
+    margin: 0.6rem 0;
+    font-size: 1.05rem;
+    line-height: 1.5;
+
+    strong {
+      color: $text-dark;
+      font-weight: 500;
+      min-width: 80px; // Align labels
+      display: inline-block;
+    }
+  }
+}
+
+.contact-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1.5rem; // More space between buttons
+  flex-wrap: wrap; // Allow buttons to wrap
+  justify-content: center; // Center buttons
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #25d366; /* WhatsApp green default */
+  color: white;
+  padding: 0.75rem 1.25rem; // More padding
+  border-radius: 8px; // Rounded buttons
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); // Softer shadow
+
+  &.telegram-btn {
+    background-color: #0088cc;
+    box-shadow: 0 4px 10px rgba(0, 136, 204, 0.3);
+  }
+
+  &:hover {
+    transform: translateY(-3px); // Lift effect
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); // Stronger shadow on hover
+  }
+
+  &:active {
+    transform: translateY(0); // Press effect
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  svg {
+    font-size: 1.2rem; // Larger icons
+  }
+}
+
+/* Listings Section */
+.listings-section {
+  .tabs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap; // Allow wrapping of tabs and button
+    gap: 1rem;
+  }
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; // More space between tabs
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem; // Larger tab text
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  color: $text-light;
+  position: relative; // For hover underline effect
+
+  &:hover {
+    color: $primary-blue;
+  }
+
+  &.active {
+    border-color: $primary-blue;
+    color: $primary-blue;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; // Align with border-bottom
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: $primary-blue;
+    transition: width 0.3s ease;
+  }
+
+  &.active::after,
+  &:hover::after {
+    width: 100%; // Expand underline on active/hover
+  }
+}
+
+.add-service-btn {
+  background-color: $accent-green;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+
+  &:hover {
+    background-color: darken($accent-green, 8%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(46, 204, 113, 0.2);
+  }
+
+  svg {
+    font-size: 1.1rem;
+  }
+}
+
+/* Services List */
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // Responsive grid for services
+  gap: 1.5rem;
+}
+
+.service-item {
+  background-color: #fbfbfc;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid $border-light;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  }
+
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      font-size: 1.25rem;
+      color: $primary-blue;
+      margin: 0;
+      word-break: break-word; // Prevent long titles from overflowing
+    }
+  }
+
+  .item-actions {
+    display: flex;
+    gap: 0.7rem;
+  }
+
+  button.action-icon {
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.1s ease;
+    padding: 0.3rem;
+    border-radius: 4px;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &.delete {
+      color: $danger-red;
+      &:hover {
+        color: darken($danger-red, 10%);
+      }
+    }
+
+    &.edit {
+      color: $primary-blue;
+      &:hover {
+        color: darken($primary-blue, 10%);
+      }
+    }
+  }
+
+  p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+
+    strong {
+      color: $text-dark;
+      font-weight: 500;
+    }
+  }
+}
+
+/* No Data Text */
+.no-data {
+  padding: 2rem;
+  font-style: italic;
+  color: $text-light;
+  text-align: center;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+}
+
+/* Modal Styling (if you use a separate ServiceModal component) */
+/* (Add styles for ServiceModal Overlay and Content here or in its own SCSS file) */

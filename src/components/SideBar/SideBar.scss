@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+// Modern & Refined Color Palette (from your other files for consistency)
+$color-primary-dark: #2c3e50; // Dark text, main headings
+$color-primary-blue: #3498db; // Accent blue for interactive elements
+$color-accent-green: #2ecc71; // Green for success
+$color-danger-red: #e74c3c; // Red for delete/errors
+$color-background-light: #f7f9fc; // Soft, light page background
+$color-card-bg: #ffffff; // White for cards
+$color-border-subtle: #edf2f7; // Very light border for definition
+$color-text-light: #718096; // Lighter text for descriptions/subtitles
+$color-input-bg: #e9eff6; // Background for input fields (slightly off-white)
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+$color-text-dark: #333333; // More defined dark text color
+
+.sidebar {
+  width: 260px; // Fixed width for sidebar on ALL screens
+  background-color: $color-card-bg; // Clean white background
+  padding: 1.5rem 1rem; // Adjusted padding for modern look
+  box-shadow: 4px 0 20px $shadow-md; // Elegant shadow to the right/left
+  height: 100vh; // Full viewport height
+  display: flex;
+  flex-direction: column;
+  z-index: 1000; // Ensure it stays on top of other content
+  position: fixed; // Fixed position so it doesn't scroll with content
+  top: 0;
+  // No transform transitions needed as it's always visible
+
+  // Position for LTR (always visible on left)
+  &.en {
+    left: 0;
+    right: auto;
+  }
+
+  // Position for RTL (always visible on right)
+  &.ar {
+    right: 0;
+    left: auto;
+  }
+
+  // --- Sidebar Brand Section ---
+  .side-brand {
+    margin-bottom: 2.5rem; // Good spacing below brand
+    padding-bottom: 1rem; // Padding for brand text
+    border-bottom: 1px solid $color-border-subtle; // Subtle line below brand
+    text-align: center; // Center brand text
+    display: flex; // Align icon with text
+    align-items: center;
+    justify-content: center; // Center brand content
+
+    .brand-text {
+      font-family: 'Montserrat', sans-serif; // Consistent font
+      font-size: 1.8rem; // Larger, prominent brand text
+      font-weight: 700; // Bold for prominence
+      color: $color-primary-dark; // Dark text for contrast
+      display: flex;
+      align-items: center;
+      gap: 0.25rem; // Space between H and icon
+    }
+
+    .search-icon {
+      color: $color-primary-blue; // Use primary blue for consistency
+      font-size: 1.4rem; // Slightly larger search icon
+    }
+  }
+
+  // --- Language Toggle Button ---
+  .toggle-lang {
+    margin-bottom: 2rem; // Space below the language toggle
+    display: flex; // Flexbox for icon and label alignment
+    align-items: center;
+    justify-content: center; // Center content within the button
+    padding: 0.8rem 1rem; // Generous padding
+    border: 1px solid $color-border-subtle; // Subtle border
+    background-color: $color-input-bg; // Light background
+    border-radius: 10px; // Rounded corners
+    cursor: pointer;
+    transition: all 0.3s ease; // Smooth transition
+
+    &:hover {
+      background-color: lighten($color-input-bg, 3%); // Lighter hover
+      border-color: $color-primary-blue; // Blue border on hover
+      box-shadow: 0 2px 8px $shadow-sm; // Subtle shadow
+    }
+
+    .icon {
+      font-size: 1.3rem; // Larger icon
+      color: $color-primary-blue; // Blue icon color
+    }
+
+    .label {
+      color: $color-primary-dark; // Dark text for label
+      font-weight: 600; // Semi-bold font
+      font-size: 0.95rem; // Slightly smaller label font
+      margin-left: 0.75rem; // Space between icon and label in LTR
+      margin-right: 0; // Reset default margin
+    }
+
+    // RTL specific adjustment for language toggle label
+    .sidebar.ar & .label {
+      margin-right: 0.75rem; // Space between icon and label in RTL
+      margin-left: 0; // Reset default margin
+    }
+  }
+
+  // --- Sidebar Menu ---
+  .sidebar-menu {
+    list-style: none; // Remove bullet points
+    padding: 0; // Remove default padding
+    margin: 0; // Remove default margin
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem; // Tighter spacing between menu items
+    flex-grow: 1; // Allows menu to take up available vertical space
+
+    li {
+      width: 100%; // Ensure list item takes full width
+
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem; // Consistent gap between icon and label
+        font-size: 1rem; // Base font size
+        cursor: pointer;
+        padding: 0.9rem 1.2rem; // More generous padding around links
+        border-radius: 10px; // Rounded corners for links
+        transition: all 0.3s ease; // Smooth transition for hover/active states
+        color: $color-primary-dark; // Darker default color for better contrast
+        text-decoration: none; // Remove underline
+        font-weight: 500; // Medium font weight
+
+        &:hover {
+          background: rgba($color-primary-blue, 0.1); // Light blue background on hover
+          color: $color-primary-blue; // Blue text on hover
+          transform: translateX(5px); // Slight slide effect
+        }
+
+        &.active { // Active (selected) link styles
+          background: $color-primary-blue; // Solid blue background for active link
+          color: white; // White text for active link
+          font-weight: 600; // Bolder for active link
+          box-shadow: 0 4px 10px rgba($color-primary-blue, 0.2); // Blue shadow for active link
+          transform: translateX(5px); // Maintain slide effect
+          
+          .icon {
+            color: white; // White icon when active
+          }
+        }
+
+        .icon {
+          font-size: 1.3rem; // Larger icon size
+          min-width: 1.3rem; // Ensures icons align even if they differ slightly
+          text-align: center;
+          color: $color-text-light; // Lighter icon color by default
+          transition: color 0.3s ease; // Smooth color transition
+        }
+      }
+    }
+  }
+}
+
+/* --- Responsive Adjustments for a ALWAYS VISIBLE sidebar --- */
+
+// At this breakpoint, the sidebar and main content might start to feel cramped.
+// You'll need to adjust the width of the sidebar and the margins of the main content.
+@media (max-width: 1024px) { 
+  .sidebar {
+    width: 200px; // Example: make sidebar slightly narrower
+    padding: 1rem 0.8rem; // Adjust padding
+    .side-brand .brand-text {
+      font-size: 1.6rem; // Smaller brand text
+    }
+    .toggle-lang .label, .sidebar-menu .sidebar-link .label {
+      font-size: 0.9rem; // Smaller menu item labels
+    }
+    .toggle-lang .icon, .sidebar-menu .sidebar-link .icon {
+      font-size: 1.1rem; // Smaller icons
+    }
+  }
+
+  // IMPORTANT: You MUST adjust the main-content margins in EACH PAGE'S SCSS
+  // to account for this narrower sidebar. Example for Dashboard.scss:
+  /*
+    .admin-dashboard .main-content {
+      margin-left: 215px; // 200px (new sidebar width) + 15px (gap)
+      margin-right: 1.5rem;
+    }
+    .admin-dashboard.rtl .main-content {
+      margin-right: 215px;
+      margin-left: 1.5rem;
+    }
+  */
+}
+
+@media (max-width: 768px) { // For tablet portrait and smaller devices
+  .sidebar {
+    width: 180px; // Make sidebar even narrower
+    padding: 0.8rem 0.6rem; // Even smaller padding
+    .side-brand .brand-text {
+      font-size: 1.4rem;
+    }
+    .toggle-lang .label, .sidebar-menu .sidebar-link .label {
+      font-size: 0.85rem;
+    }
+    .toggle-lang .icon, .sidebar-menu .sidebar-link .icon {
+      font-size: 1rem;
+    }
+    .sidebar-menu {
+        gap: 0.4rem; // Even tighter gap
+    }
+    .sidebar-menu .sidebar-link {
+        padding: 0.7rem 0.8rem; // Smaller padding for links
+    }
+  }
+
+  // IMPORTANT: Adjust main-content margins in EACH PAGE'S SCSS. Example for Dashboard.scss:
+  /*
+    .admin-dashboard .main-content {
+      margin-left: 195px; // 180px (new sidebar width) + 15px (gap)
+      margin-right: 1.5rem;
+    }
+    .admin-dashboard.rtl .main-content {
+      margin-right: 195px;
+      margin-left: 1.5rem;
+    }
+  */
+}
+
+@media (max-width: 480px) { // For very small mobile screens
+  // At this point, even a narrow fixed sidebar might be too much.
+  // You might need to reconsider if an always-visible sidebar is feasible/desirable here,
+  // or accept that the main content will be very narrow.
+  .sidebar {
+    width: 150px; // Very narrow sidebar
+    padding: 0.5rem;
+    .side-brand .brand-text {
+        font-size: 1.2rem;
+    }
+    .toggle-lang .label, .sidebar-menu .sidebar-link .label {
+        font-size: 0.75rem;
+    }
+    .toggle-lang .icon, .sidebar-menu .sidebar-link .icon {
+        font-size: 0.9rem;
+    }
+  }
+  // IMPORTANT: Adjust main-content margins in EACH PAGE'S SCSS. Example for Dashboard.scss:
+  /*
+    .admin-dashboard .main-content {
+      margin-left: 165px; // 150px (new sidebar width) + 15px (gap)
+      margin-right: 1rem;
+    }
+    .admin-dashboard.rtl .main-content {
+      margin-right: 165px;
+      margin-left: 1rem;
+    }
+    // Also, main content itself might need more aggressive padding adjustments for content fit.
+  */
+}

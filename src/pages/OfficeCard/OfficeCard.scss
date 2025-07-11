@@ -1,0 +1,83 @@
+.office-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease;
+  margin-bottom: 20px;
+
+  &.active {
+    border-left: 4px solid #00ffcc;
+  }
+
+  &.inactive {
+    border-left: 4px solid #ff4d4d;
+    opacity: 0.8;
+  }
+
+  .office-info {
+    h2 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #00d8ff;
+    }
+
+    p {
+      font-size: 14px;
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #ddd;
+    }
+
+    .published-count {
+      margin-top: 10px;
+      color: #ccc;
+    }
+  }
+
+  .action-buttons {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    a,
+    .subscription-btn {
+      text-decoration: none;
+      background: #1e1e2f;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+
+      svg {
+        font-size: 14px;
+      }
+
+      &:hover {
+        background: #00d8ff;
+        color: #000;
+      }
+    }
+
+    .whatsapp:hover {
+      background: #25d366;
+      color: #000;
+    }
+
+    .telegram:hover {
+      background: #0088cc;
+      color: #fff;
+    }
+  }
+}

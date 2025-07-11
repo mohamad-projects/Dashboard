@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap'); // Changed font to Montserrat
+
+// Modern & Refined Color Palette (as used in other files)
+$color-primary-dark: #2c3e50; // Dark text, main headings
+$color-primary-blue: #3498db; // Accent blue for interactive elements
+$color-accent-green: #2ecc71; // Green for success
+$color-danger-red: #e74c3c; // Red for delete/errors
+$color-background-light: #f7f9fc; // Soft, light page background
+$color-card-bg: #ffffff; // White for cards
+$color-border-subtle: #edf2f7; // Very light border for definition
+$color-text-light: #718096; // Lighter text for descriptions/subtitles
+$color-input-bg: #f0f4f8; // Background for input fields
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+$color-text-dark: #333333; // More defined dark text color
+
+body {
+  font-family: 'Montserrat', sans-serif; // Updated font family
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $color-background-light;
+  color: $color-primary-dark;
+  line-height: 1.6;
+}
+
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: $color-background-light;
+}
+
+.main.complaints-main {
+  flex: 1;
+  padding: 2.5rem; // Generous padding
+  background: $color-background-light; // Use page background for main content area
+  border-radius: 16px; // Rounded corners for the main content area
+  margin: 1.5rem; // Margin around the main content
+  box-shadow: 0 8px 30px $shadow-md; // Soft, deep shadow
+  min-height: calc(100vh - 3rem); // Adjust height to account for margin
+  max-width: 1400px; // Limit max width
+  box-sizing: border-box; // Include padding in width
+  margin-left: auto; // Center container if sidebar not present
+  margin-right: auto; // Center container if sidebar not present
+}
+
+/* Sidebar spacing adjustments based on LTR/RTL */
+.admin-dashboard.ltr .main.complaints-main {
+  margin-left: 280px; // Space for sidebar in LTR
+  margin-right: 1.5rem;
+  direction: ltr; // Ensure content is LTR by default
+}
+
+.admin-dashboard.rtl .main.complaints-main {
+  margin-right: 280px; // Space for sidebar in RTL
+  margin-left: 1.5rem;
+  direction: rtl; // Ensure content is RTL by default
+}
+
+
+.complaints-title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem); // Responsive title size
+  font-weight: 700;
+  color: $color-primary-dark; // Dark text color
+  margin-bottom: 2.5rem; // More space below title
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px; // Underline width
+    height: 4px;
+    background-color: $color-primary-blue; // Blue underline
+    border-radius: 2px;
+  }
+
+  .title-icon {
+    color: $color-primary-blue; // Blue icon
+    font-size: 1.2em;
+  }
+}
+
+.complaints-table {
+  background: $color-card-bg; // White background for the table
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 4px 20px $shadow-sm; // Lighter shadow for table
+  border: 1px solid $color-border-subtle; // Subtle border
+
+  .table-header, .table-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 2.5fr 1fr 1.2fr; // Adjusted column widths
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid $color-border-subtle; // Subtle border
+    align-items: center; // Vertically align content
+  }
+
+  .table-header {
+    font-weight: 700; // Bolder header font
+    background: $color-input-bg; // Light gray background for header
+    color: $color-primary-dark; // Dark text for header
+    font-size: 0.95rem;
+
+    span {
+      padding: 0.5rem 0; // Add padding to header spans
+    }
+  }
+
+  .table-row {
+    color: $color-primary-dark; // Dark text for rows
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: lighten($color-input-bg, 3%); // Slight hover effect
+    }
+
+    &:last-child {
+      border-bottom: none; // No border for the last row
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem; // Space between icon and text in rows
+
+      .row-icon {
+        color: $color-primary-blue; // Blue icon for row data
+        font-size: 1em;
+      }
+    }
+
+    .resolved-status {
+      color: $color-accent-green; // Green for resolved
+      font-weight: 600;
+      .status-icon {
+        color: $color-accent-green;
+      }
+    }
+
+    .pending-status {
+      color: $color-danger-red; // Red for pending
+      font-weight: 600;
+      .status-icon {
+        color: $color-danger-red;
+      }
+    }
+
+    .resolve-btn {
+      background-color: $color-primary-blue; // Blue button
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px; // Slightly smaller border-radius
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      box-shadow: 0 2px 5px rgba($color-primary-blue, 0.2); // Subtle shadow
+
+      &:disabled {
+        background-color: $color-text-light; // Lighter gray when disabled
+        cursor: not-allowed;
+        color: white; // White text for disabled button
+        opacity: 0.8;
+        box-shadow: none;
+      }
+
+      &:hover:not(:disabled) {
+        background-color: darken($color-primary-blue, 8%); // Darken on hover
+        transform: translateY(-1px); // Slight lift
+        box-shadow: 0 4px 10px rgba($color-primary-blue, 0.3);
+      }
+    }
+  }
+}
+
+.no-complaints-message {
+  padding: 1.5rem;
+  text-align: center;
+  color: $color-text-light; // Lighter text color
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  font-size: 1rem;
+
+  .no-data-icon {
+    font-size: 1.5em;
+    color: $color-text-light;
+  }
+}
+
+/* RTL Adjustments */
+.admin-dashboard.rtl {
+  .complaints-title {
+    flex-direction: row-reverse;
+    .title-icon {
+      margin-left: 0.8rem;
+      margin-right: 0;
+    }
+    &::after {
+      left: auto;
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
+
+  .complaints-table {
+    .table-header, .table-row {
+      direction: rtl; // Ensure text direction is RTL within rows
+    }
+    .table-header span {
+      // No specific RTL text alignment needed for header spans if already centered/flex-start
+    }
+    .table-row span {
+      flex-direction: row-reverse; // Reverse icon and text
+      justify-content: flex-end; // Align to the right
+      .row-icon {
+        margin-left: 0.5rem; // Adjust margin for icon
+        margin-right: 0;
+      }
+      .status-icon {
+        margin-left: 0.5rem;
+        margin-right: 0;
+      }
+    }
+    .table-row .resolve-btn {
+      // Button text and icon will already be reversed by flex-direction on span if applied directly.
+      // If button is direct child, it needs its own flex-direction: row-reverse;
+    }
+  }
+  .no-complaints-message {
+    flex-direction: row-reverse;
+    .no-data-icon {
+      margin-left: 0.8rem;
+      margin-right: 0;
+    }
+  }
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .main.complaints-main {
+    padding: 2rem;
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column; // Stack sidebar and main content
+  }
+  .main.complaints-main {
+    margin-left: 0 !important; // Remove sidebar margin on mobile
+    margin-right: 0 !important;
+    border-radius: 0; // Remove border radius on full-width mobile
+    padding: 1.5rem;
+    min-height: auto;
+    box-shadow: none; // Remove shadow on full-width mobile
+  }
+
+  .complaints-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    .title-icon {
+      font-size: 1.5em;
+    }
+  }
+
+  .complaints-table {
+    .table-header, .table-row {
+      grid-template-columns: 1fr 1fr; // Stack into 2 columns on smaller screens
+      gap: 10px; // Add some gap for stacked items
+      padding: 0.8rem 1rem;
+      font-size: 0.85rem; // Slightly smaller font
+    }
+    .table-header span:nth-child(3), .table-row span:nth-child(3) { /* Complaint column */
+      grid-column: 1 / -1; /* Make complaint span full width */
+      text-align: left; /* Adjust text alignment for full-width complaint */
+      padding-bottom: 0.5rem; /* Add padding below complaint for separation */
+    }
+    .table-header span:nth-child(4), .table-row span:nth-child(4) { /* Status column */
+      // No specific change needed, it will flow to next available grid cell
+    }
+    .table-header span:nth-child(5), .table-row span:nth-child(5) { /* Action column */
+      // No specific change needed
+    }
+
+    .table-row {
+      span {
+        flex-direction: column; // Stack icon and text vertically
+        align-items: flex-start; // Align to start of stacked column
+        gap: 0.2rem; // Smaller gap for stacked items
+      }
+      .resolve-btn {
+        width: 100%; // Make button full width
+        margin-top: 0.5rem; // Add margin for spacing
+        padding: 10px 12px; // Adjust padding
+        font-size: 0.9rem; // Adjust font size
+      }
+    }
+
+    // Specific adjustments for RTL on smaller screens if necessary
+    .admin-dashboard.rtl & {
+      .table-header span:nth-child(3), .table-row span:nth-child(3) {
+        text-align: right; /* Adjust text alignment for full-width complaint in RTL */
+      }
+      .table-row span {
+        align-items: flex-end; /* Align to end for stacked column in RTL */
+        .row-icon, .status-icon {
+          margin-right: 0.5rem;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .main.complaints-main {
+    padding: 1rem;
+  }
+  .complaints-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    .title-icon {
+      font-size: 1.1em;
+    }
+  }
+  .complaints-table {
+    .table-header, .table-row {
+      padding: 0.7rem 0.8rem;
+      font-size: 0.8rem;
+    }
+    .table-row .resolve-btn {
+      padding: 8px 10px;
+      font-size: 0.8rem;
+    }
+  }
+}

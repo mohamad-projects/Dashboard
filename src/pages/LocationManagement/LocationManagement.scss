@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+// Variables for a cohesive theme
+$primary-blue: #3498db;
+$accent-green: #2ecc71; // For positive actions / success
+$danger-red: #e74c3c;
+$text-dark: #2c3e50;
+$text-light: #7f8c8d;
+$background-main: #f0f2f5; // Lighter, modern background
+$card-bg: #ffffff;
+$border-light: #e0e0e0;
+$input-bg: #f9fbfd;
+$shadow-sm: rgba(0, 0, 0, 0.07);
+$shadow-md: rgba(0, 0, 0, 0.12);
+$shadow-lg: rgba(0, 0, 0, 0.2);
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $background-main;
+  color: $text-dark;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $text-dark;
+  font-weight: 600;
+  margin-top: 0;
+}
+
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden; // Prevents horizontal scroll from sidebar transitions
+
+  &.en .main {
+    margin-left: 250px; // Assumes sidebar width
+    transition: margin-left 0.3s ease-in-out;
+  }
+
+  &.ar .main {
+    margin-right: 250px; // Assumes sidebar width
+    transition: margin-right 0.3s ease-in-out;
+  }
+
+  .main {
+    flex: 1;
+    padding: 2.5rem; // Use rem for consistent padding
+    box-sizing: border-box;
+    transition: margin 0.3s ease-in-out;
+
+    .page-title {
+      text-align: center;
+      font-size: 2.5rem; // Larger title
+      font-weight: 700;
+      color: $primary-blue;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block; // To center underline
+      width: fit-content; // To fit underline to text width
+      left: 50%;
+      transform: translateX(-50%);
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: $accent-green;
+        border-radius: 2px;
+      }
+    }
+
+    // Status/Error/Success messages
+    .status-message {
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px $shadow-sm;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .loading-message {
+      background-color: lighten($primary-blue, 40%);
+      color: darken($primary-blue, 10%);
+      border: 1px solid $primary-blue;
+    }
+
+    .error-message {
+      background-color: lighten($danger-red, 30%);
+      color: darken($danger-red, 15%);
+      border: 1px solid $danger-red;
+      &.delete-error-shake {
+        animation: shake 0.5s;
+      }
+    }
+
+    .success-message {
+      background-color: lighten($accent-green, 30%);
+      color: darken($accent-green, 15%);
+      border: 1px solid $accent-green;
+    }
+
+    .no-data-message {
+      background-color: lighten($text-light, 40%);
+      color: darken($text-light, 10%);
+      border: 1px solid lighten($text-light, 20%);
+      font-style: italic;
+    }
+
+    .location-form {
+      display: flex;
+      gap: 1.5rem; // More space between elements
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: $card-bg;
+      padding: 2rem; // Increased padding
+      border-radius: 12px;
+      box-shadow: 0 6px 20px $shadow-md; // More pronounced shadow
+      margin-bottom: 3rem; // More space below form
+      align-items: center;
+
+      input {
+        flex: 1 1 250px; // Slightly wider input fields
+        background-color: $input-bg;
+        border: 1px solid $border-light; // Subtle border
+        border-radius: 8px;
+        padding: 0.9rem 1.2rem; // More padding
+        font-size: 1rem;
+        color: $text-dark;
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: $primary-blue;
+          box-shadow: 0 0 0 3px rgba($primary-blue, 0.3); // Softer focus ring
+        }
+
+        &::placeholder {
+          color: $text-light;
+        }
+      }
+
+      button[type="submit"] {
+        background-color: $primary-blue; // Consistent primary color for add
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.9rem 1.5rem; // More padding
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 10px rgba($primary-blue, 0.3);
+
+        &:hover {
+          background-color: darken($primary-blue, 8%);
+          transform: translateY(-2px); // Lift effect
+          box-shadow: 0 6px 15px rgba($primary-blue, 0.4);
+        }
+
+        &:active {
+          transform: translateY(0); // Press effect
+          box-shadow: 0 2px 5px rgba($primary-blue, 0.2);
+        }
+      }
+    }
+
+    .locations-list-section {
+      background: $card-bg;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px $shadow-md;
+
+      .locations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // Responsive grid
+        gap: 1.5rem; // Consistent gap
+      }
+
+      .location-card {
+        background: lighten($background-main, 2%); // Slightly different background for cards
+        padding: 1.2rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        border: 1px solid $border-light; // Add a light border
+
+        &:hover {
+          background: #eef3f7; // Lighter hover background
+          transform: translateY(-4px); // More noticeable lift
+          box-shadow: 0 8px 25px $shadow-md; // Stronger shadow on hover
+        }
+
+        .info {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+          font-size: 1.1rem;
+          font-weight: 500;
+          color: $text-dark;
+
+          .marker-icon {
+            color: $accent-green; // Consistent green
+            font-size: 1.3rem; // Larger icon
+          }
+        }
+
+        .delete-btn {
+          background: none;
+          border: none;
+          color: $danger-red;
+          font-size: 1.3rem; // Larger trash icon
+          cursor: pointer;
+          transition: transform 0.2s ease, color 0.2s ease;
+          padding: 0.5rem; // Add padding for better click area
+          border-radius: 50%; // Make it a circle
+          
+          &:hover {
+            transform: scale(1.15); // More zoom on hover
+            color: darken($danger-red, 10%);
+            background-color: rgba($danger-red, 0.1); // Light red background on hover
+          }
+          &:active {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Media Queries for Responsiveness
+@media (max-width: 1024px) {
+  .admin-dashboard {
+    .main {
+      padding: 2rem;
+      &.en {
+        margin-left: 200px;
+      }
+      &.ar {
+        margin-right: 200px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column; // Stack sidebar and main content
+    .main {
+      margin-left: 0 !important; // Override sidebar margin
+      margin-right: 0 !important; // Override sidebar margin
+      padding: 1.5rem;
+      padding-top: 5rem; // Adjust for fixed mobile sidebar if applicable
+
+      .page-title {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .location-form {
+        padding: 1.5rem;
+        gap: 1rem;
+        input {
+          flex: 1 1 100%; // Full width inputs on small screens
+        }
+        button {
+          width: 100%; // Full width button
+        }
+      }
+
+      .locations-list-section {
+        padding: 1.5rem;
+        .locations-grid {
+          grid-template-columns: 1fr; // Single column for locations
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard .main {
+    padding: 1rem;
+    padding-top: 4.5rem;
+
+    .page-title {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      &::after {
+        width: 60px;
+      }
+    }
+    .status-message {
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+    }
+    .location-form {
+      padding: 1rem;
+      input, button {
+        font-size: 0.9rem;
+        padding: 0.8rem 1rem;
+      }
+    }
+    .locations-list-section {
+      padding: 1rem;
+      .location-card {
+        padding: 1rem 1.2rem;
+        .info {
+          font-size: 1rem;
+          .marker-icon {
+            font-size: 1.1rem;
+          }
+        }
+        .delete-btn {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
+
+// Keyframe for shake animation
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-5px);
+  }
+  40%, 80% {
+    transform: translateX(5px);
+  }
+}

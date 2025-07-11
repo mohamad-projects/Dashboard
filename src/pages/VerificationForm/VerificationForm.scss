@@ -1,0 +1,540 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+// Modern & Refined Color Palette
+$color-primary-dark: #2c3e50;
+$color-primary-blue: #3498db;
+$color-accent-green: #2ecc71;
+$color-danger-red: #e74c3c;
+$color-background-light: #f7f9fc;
+$color-card-bg: #ffffff;
+$color-border-subtle: #edf2f7;
+$color-text-light: #718096;
+$color-input-bg: #f0f4f8;
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $color-background-light;
+  color: $color-primary-dark;
+  line-height: 1.6;
+}
+
+.verification-page-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: $color-background-light;
+
+  /* This is the crucial part: adjust margin for the main content to clear the fixed sidebar */
+  .verification-card {
+    background: $color-card-bg;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px $shadow-md;
+    padding: 40px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 2rem; /* Keep existing top margin */
+    margin-bottom: 2rem; /* Keep existing bottom margin */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    // Default margin for LTR (Sidebar on left, push content to the right)
+    margin-left: calc(260px + 1.5rem); /* Sidebar width + desired gap (1.5rem = 24px default) */
+    margin-right: auto; /* Allow auto margin to center remaining space */
+  }
+  
+  // Override margins for RTL (Sidebar on right, push content to the left)
+  &.rtl .verification-card {
+    margin-right: calc(260px + 1.5rem); /* Sidebar width + desired gap */
+    margin-left: auto; /* Allow auto margin to center remaining space */
+  }
+}
+
+.card-title {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 2.5rem;
+  color: $color-primary-dark;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
+  .title-icon {
+    color: $color-primary-blue;
+    font-size: 1.8em;
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: $color-primary-dark;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  input[type='text'] {
+    padding: 0.9rem 1.1rem;
+    border-radius: 10px;
+    border: 1px solid $color-border-subtle;
+    background-color: $color-input-bg;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    color: $color-primary-dark;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: $color-primary-blue;
+      background: $color-card-bg;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($color-primary-blue, 0.25);
+    }
+
+    &::placeholder {
+      color: $color-text-light;
+    }
+  }
+
+  .user-id-select-group {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+
+    input[type='text'] {
+      flex-grow: 1;
+      cursor: pointer;
+      text-align: left;
+      &:focus {
+        cursor: pointer;
+      }
+    }
+
+    .select-office-btn {
+      background-color: $color-primary-blue;
+      color: white;
+      border: none;
+      padding: 0.9rem 1.1rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba($color-primary-blue, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      flex-shrink: 0;
+
+      &:hover {
+        background-color: darken($color-primary-blue, 8%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba($color-primary-blue, 0.3);
+      }
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba($color-primary-blue, 0.1);
+      }
+    }
+  }
+
+  &.image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px dashed $color-border-subtle;
+    border-radius: 10px;
+    padding: 1.5rem;
+    background-color: $color-input-bg;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 250px;
+
+    input[type='file'] {
+      display: none;
+    }
+
+    &:hover {
+      border-color: $color-primary-blue;
+      background-color: lighten($color-input-bg, 2%);
+    }
+
+    .upload-button-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .custom-upload-button {
+      background-color: $color-primary-blue;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba($color-primary-blue, 0.2);
+      white-space: nowrap;
+      height: auto;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+
+
+      .upload-icon {
+        font-size: 1em;
+      }
+
+      &:hover {
+        background-color: darken($color-primary-blue, 8%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba($color-primary-blue, 0.3);
+      }
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba($color-primary-blue, 0.1);
+      }
+    }
+
+    .image-preview {
+      margin-top: 0.8rem;
+      max-height: 200px;
+      width: auto;
+      max-width: 100%;
+      border-radius: 10px;
+      border: 1px solid $color-border-subtle;
+      object-fit: contain;
+      box-shadow: 0 5px 15px $shadow-sm;
+      display: block;
+    }
+  }
+}
+
+.image-upload-group {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+  align-items: flex-start;
+
+  .form-field.image-upload {
+    flex: 1;
+    min-width: 280px;
+  }
+}
+
+
+.error-message {
+  color: $color-danger-red;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  svg {
+    font-size: 0.95em;
+  }
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+
+  button[type="submit"] {
+    background: linear-gradient(to right, $color-primary-blue, darken($color-primary-blue, 10%));
+    color: #fff;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba($color-primary-blue, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: fit-content;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(to right, darken($color-primary-blue, 10%), darken($color-primary-blue, 15%));
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba($color-primary-blue, 0.35);
+    }
+
+    &:disabled {
+      background: $color-text-light;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+  }
+
+  .status-message {
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 8px $shadow-sm;
+  }
+
+  .error-message {
+    background-color: lighten($color-danger-red, 30%);
+    color: darken($color-danger-red, 15%);
+    border: 1px solid $color-danger-red;
+  }
+
+  .success-message {
+    background-color: lighten($color-accent-green, 30%);
+    color: darken($color-accent-green, 15%);
+    border: 1px solid $color-accent-green;
+  }
+}
+
+.view-verifications-btn {
+  background-color: $color-text-light;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba($color-text-light, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 30px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    background-color: darken($color-text-light, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba($color-text-light, 0.3);
+  }
+}
+
+/* RTL Adjustments */
+.verification-page-wrapper.rtl {
+  .card-title {
+    flex-direction: row-reverse;
+    .title-icon {
+      margin-left: 0.8rem;
+      margin-right: 0;
+    }
+  }
+
+  .form-field {
+    label {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    .error-message {
+      text-align: right;
+    }
+
+    .user-id-select-group {
+      input[type='text'] {
+        text-align: right;
+      }
+    }
+
+    &.image-upload {
+      .custom-upload-button {
+        .upload-icon {
+          margin-left: 0.6rem;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .image-upload-group {
+    flex-direction: row-reverse;
+  }
+
+  .form-actions {
+    button[type="submit"] {
+      flex-direction: row-reverse;
+      gap: 0.6rem;
+    }
+  }
+
+  .view-verifications-btn {
+    flex-direction: row-reverse;
+    gap: 0.6rem;
+  }
+}
+
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design for ALWAYS VISIBLE sidebar */
+@media (max-width: 1024px) { 
+  .verification-page-wrapper {
+    .verification-card {
+      padding: 35px;
+      max-width: 750px;
+      
+      // Adjust margin for smaller sidebar if defined in Sidebar.scss
+      margin-left: calc(200px + 1.5rem); /* Example: Sidebar width 200px + 1.5rem gap */
+      margin-right: auto;
+    }
+    // RTL adjustment
+    &.rtl .verification-card {
+      margin-right: calc(200px + 1.5rem);
+      margin-left: auto;
+    }
+
+    .card-title {
+      font-size: 2.2rem;
+    }
+    .form-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .verification-page-wrapper {
+    flex-direction: column; /* Stack if needed, but sidebar is fixed so main content should just narrow */
+
+    .verification-card {
+      margin-top: 2rem; // Keep top margin consistent
+      margin-bottom: 20px;
+      padding: 30px;
+      max-width: 100%; /* Allow to fill available space */
+      
+      // Adjust margin for even narrower sidebar
+      margin-left: calc(180px + 1.5rem); /* Example: Sidebar width 180px + 1.5rem gap */
+      margin-right: auto;
+    }
+    // RTL adjustment
+    &.rtl .verification-card {
+      margin-right: calc(180px + 1.5rem);
+      margin-left: auto;
+    }
+
+    .card-title {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      .title-icon {
+        font-size: 1.5em;
+      }
+    }
+    .form-grid {
+      grid-template-columns: 1fr; /* Single column layout for form fields */
+      gap: 15px;
+    }
+    .form-actions {
+      margin-top: 20px;
+    }
+    .view-verifications-btn {
+      margin-top: 20px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .verification-page-wrapper {
+    .verification-card {
+      padding: 20px;
+      // Adjust margin for very narrow sidebar
+      margin-left: calc(150px + 1rem); /* Example: Sidebar width 150px + 1rem gap */
+      margin-right: auto;
+    }
+    // RTL adjustment
+    &.rtl .verification-card {
+      margin-right: calc(150px + 1rem);
+      margin-left: auto;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      .title-icon {
+        font-size: 1.3em;
+      }
+    }
+    .form-field {
+      label {
+        font-size: 0.9rem;
+      }
+      input[type='text'] {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+      }
+      &.image-upload {
+        padding: 1rem;
+        .custom-upload-button {
+          padding: 0.7rem 1rem;
+          font-size: 0.85rem;
+        }
+        .image-preview {
+          max-height: 120px;
+        }
+      }
+    }
+    .form-actions {
+      button[type="submit"] {
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+      }
+      .status-message {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+      }
+    }
+    .view-verifications-btn {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.9rem;
+    }
+  }
+}

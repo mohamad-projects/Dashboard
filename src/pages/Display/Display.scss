@@ -1,0 +1,207 @@
+$primary-color: #2A5C8D;
+$secondary-color: #f8f9fa;
+$light-bg: #f1f3f5;
+$text-color: #2d3436;
+
+.display-page {
+    padding: 2rem 5%;
+    background-color: $secondary-color;
+}
+
+.properties-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 2rem;
+    // max-width: 1200px;
+}
+
+.property-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; // To stack content vertically
+    justify-content: space-between; // To push the "More Details" button to the bottom
+}
+
+.image-section {
+    height: 250px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.details-section {
+    padding: 1.2rem;
+    flex-grow: 1; // Allow details section to grow and take available space
+    display: flex;
+    flex-direction: column;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 20px 0;
+}
+
+.pagination-controls button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    padding: 1rem;
+    border-radius: 6px;
+
+    .icon {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+        color: $primary-color;
+    }
+
+    .value {
+        font-weight: 600;
+        color: $text-color;
+        // display: block;
+    }
+
+    .label {
+        font-size: 0.8rem;
+        color: lighten($text-color, 20%);
+    }
+}
+
+.bg-light {
+    background-color: $light-bg;
+}
+
+.info-section {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+
+    .price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $primary-color;
+        margin-bottom: 0.5rem;
+    }
+
+    .location {
+        font-size: 0.9rem;
+        color: $text-color;
+        line-height: 1.4;
+    }
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end; // Aligns actions to the right
+    gap: 0.5rem;
+    margin-top: 1rem; // Space above action buttons
+
+    .action-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+
+        &.delete {
+            color: #dc3545; // Red color for delete
+            &:hover {
+                background-color: lighten(#dc3545, 40%);
+            }
+        }
+    }
+}
+
+.more-details-btn {
+    width: 100%;
+    padding: 1rem;
+    background: $primary-color;
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+        background: darken($primary-color, 10%);
+    }
+}
+
+// دعم اللغة العربية
+[dir="rtl"] {
+    .detail-item {
+        flex-direction: row-reverse;
+
+        .icon {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
+    }
+
+    .info-section {
+        text-align: right;
+    }
+
+    .action-buttons {
+        justify-content: flex-start; // Align actions to the left for RTL
+    }
+}
+
+// التجاوب للشاشات الصغيرة
+@media (max-width: 768px) {
+    .properties-container {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-item {
+        flex-direction: column;
+        text-align: center;
+
+        .icon {
+            margin: 0 0 0.5rem 0;
+        }
+    }
+
+    [dir="rtl"] .detail-item {
+        flex-direction: column;
+    }
+}

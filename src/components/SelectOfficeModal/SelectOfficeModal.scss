@@ -1,0 +1,204 @@
+// src/components/SelectOfficeModal/SelectOfficeModal.scss
+
+// Variables (consider centralizing these if you have a global variables file)
+$color-primary-dark: #2c3e50;
+$color-primary-blue: #3498db;
+$color-accent-green: #2ecc71;
+$color-danger-red: #e74c3c;
+$color-background-light: #f7f9fc;
+$color-card-bg: #ffffff;
+$color-border-subtle: #edf2f7;
+$color-text-light: #718096;
+$color-input-bg: #f0f4f8;
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 3000; // Higher than other modals if applicable
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+
+  .modal-content {
+    background: $color-card-bg;
+    padding: 1.5rem;
+    border-radius: 16px;
+    width: clamp(350px, 90%, 600px); // Wider for office list
+    max-height: 80vh; // Limit height for scrollable content
+    overflow-y: auto; // Enable scrolling for long lists
+    box-shadow: 0 15px 40px $shadow-lg;
+    animation: slideIn 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $color-border-subtle;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+
+    h2 {
+      font-size: 1.8rem;
+      color: $color-primary-dark;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0;
+      .header-icon {
+        color: $color-primary-blue;
+        font-size: 1.2em;
+      }
+    }
+
+    .close-button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: $color-text-light;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      &:hover {
+        color: $color-danger-red;
+      }
+    }
+  }
+
+  .modal-search-bar {
+    position: relative;
+    input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.8rem; // Left padding for icon
+      border: 1px solid $color-border-subtle;
+      border-radius: 8px;
+      background-color: $color-input-bg;
+      font-size: 1rem;
+      color: $color-primary-dark;
+      &:focus {
+        outline: none;
+        border-color: $color-primary-blue;
+        box-shadow: 0 0 0 3px rgba($color-primary-blue, 0.2);
+      }
+    }
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $color-text-light;
+    }
+  }
+
+  .modal-status {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  .loading-message { background-color: lighten($color-primary-blue, 40%); color: darken($color-primary-blue, 10%); }
+  .error-message { background-color: lighten($color-danger-red, 30%); color: darken($color-danger-red, 15%); }
+  .no-data-message { background-color: lighten($color-text-light, 40%); color: darken($color-text-light, 10%); }
+
+  .office-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    .office-item {
+      display: flex;
+      align-items: center;
+      background: $color-background-light;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      border: 1px solid $color-border-subtle;
+      box-shadow: 0 2px 8px $shadow-sm;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px $shadow-md;
+      }
+
+      .office-icon {
+        font-size: 1.8rem;
+        color: $color-primary-blue;
+        margin-right: 1rem;
+      }
+
+      .office-details {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+
+        .office-name {
+          font-weight: 600;
+          color: $color-primary-dark;
+          font-size: 1.05rem;
+        }
+        .office-id {
+          font-size: 0.85rem;
+          color: $color-text-light;
+        }
+      }
+
+      .select-button {
+        background-color: $color-accent-green;
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        &:hover {
+          background-color: darken($color-accent-green, 8%);
+        }
+      }
+    }
+  }
+}
+
+/* RTL Adjustments for modal */
+[dir="rtl"] {
+  .modal-backdrop {
+    .modal-search-bar {
+      .search-icon {
+        left: auto;
+        right: 1rem;
+      }
+      input {
+        padding: 0.8rem 2.8rem 0.8rem 1rem; // Right padding for icon
+      }
+    }
+
+    .office-list {
+      .office-item {
+        .office-icon {
+          margin-left: 1rem;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+/* Animations (from previous sections) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

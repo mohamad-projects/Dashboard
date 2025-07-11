@@ -1,0 +1,333 @@
+// _AdminLoginPage.scss
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+// Modern & Refined Color Palette
+// _AdminLoginPage.scss
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+// Modern & Refined Color Palette
+$color-primary-dark: #2c3e50;       // Dark text, main headings
+$color-primary-blue: #3498db;       // Accent blue for interactive elements (main action color)
+$color-accent-green: #2ecc71;       // Green for success messages
+$color-danger-red: #e74c3c;         // Red for error messages
+$color-background-light: #f7f9fc;   // Soft, light page background (overall page background)
+$color-card-bg: #ffffff;            // White for cards/containers
+$color-border-subtle: #e0e6ed;      // Very light border for definition
+$color-text-light: #718096;         // Lighter text for descriptions/subtitles
+$color-input-bg: #f0f4f8;           // Background for input fields
+$shadow-sm: rgba(0, 0, 0, 0.05);
+$shadow-md: rgba(0, 0, 0, 0.1);
+$shadow-lg: rgba(0, 0, 0, 0.15);
+// THIS IS THE ONE THAT WAS MISSING OR SCOPED INCORRECTLY
+$white-color: #ffffff;
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: $color-background-light; // Fallback for browsers without gradient
+    color: $color-primary-dark;
+    line-height: 1.6;
+    // Set a subtle gradient background for the entire page
+    background: linear-gradient(135deg, #e0f2f1, #c8e6c9); // Light green gradient
+}
+
+.admin-login-page {
+    display: flex;
+    justify-content: center; // Horizontally center the login container
+    align-items: center;     // Vertically center the login container
+    min-height: 100vh;       // Ensure it takes full viewport height
+    width: 100vw;            // Ensure it takes full viewport width
+    overflow: hidden;        // Prevent scrollbars from layout issues
+}
+
+.login-container {
+    background-color: $color-card-bg;
+    padding: 40px;
+    border-radius: 16px; // More rounded corners
+    box-shadow: 0 12px 35px $shadow-md; // Deeper, softer shadow
+    width: 100%;
+    max-width: 480px; // A bit wider for a modern feel
+    text-align: center;
+    box-sizing: border-box;
+    position: relative; // For the pseudo-elements (background shapes)
+    overflow: hidden; // Ensures pseudo-elements don't spill out
+
+    // Subtle background shapes for visual interest
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 150px;
+        height: 150px;
+        background-color: rgba($color-primary-blue, 0.05);
+        border-radius: 50%;
+        filter: blur(40px);
+        z-index: 0; // Behind content
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -70px;
+        right: -70px;
+        width: 200px;
+        height: 200px;
+        background-color: rgba($color-accent-green, 0.05);
+        border-radius: 50%;
+        filter: blur(50px);
+        z-index: 0; // Behind content
+    }
+
+    .login-title {
+        margin-bottom: 35px; // More space below title
+        color: $color-primary-dark;
+        font-size: 2.5em; // Larger title for emphasis
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem; // Space between icon and text
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 90px; // Underline width
+            height: 5px; // Underline thickness
+            background-color: $color-primary-blue;
+            border-radius: 3px;
+        }
+
+        .title-icon {
+            color: $color-primary-blue;
+            font-size: 1.3em; // Larger icon
+        }
+    }
+
+    .status-message {
+        padding: 1.2rem 1.8rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px $shadow-sm; // Clearer shadow
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        width: fit-content; // Message width adapts to content
+        margin-left: auto;
+        margin-right: auto;
+        z-index: 1; // Ensure message is above pseudo-elements
+
+        svg {
+            font-size: 1.3rem; // Larger icon for messages
+        }
+    }
+
+    .error-message {
+        background-color: lighten($color-danger-red, 30%);
+        color: darken($color-danger-red, 15%);
+        border: 1px solid $color-danger-red;
+    }
+
+    .success-message {
+        background-color: lighten($color-accent-green, 30%);
+        color: darken($color-accent-green, 15%);
+        border: 1px solid $color-accent-green;
+    }
+
+    .input-group {
+        margin-bottom: 30px; // More space between input groups
+        text-align: left; // Align labels to the left
+
+        label {
+            display: block;
+            margin-bottom: 12px; // More space below label
+            font-weight: 600;
+            color: $color-primary-dark;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem; // Space between icon and text
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 16px 20px; // Larger padding for better feel
+            border: 1px solid $color-border-subtle;
+            border-radius: 12px; // More rounded input fields
+            font-size: 1.1em; // Slightly larger text
+            background-color: $color-input-bg;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            color: $color-primary-dark; // Input text color
+            
+            &:focus {
+                border-color: $color-primary-blue;
+                box-shadow: 0 0 0 4px rgba($color-primary-blue, 0.25); // Larger focus shadow
+                background-color: $color-card-bg; // White background on focus
+                outline: none;
+            }
+        }
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 18px; // Larger button for better clickability
+        background-color: $color-primary-blue;
+        color: $white-color;
+        border: none;
+        border-radius: 12px; // Rounded button
+        font-size: 1.2em; // Larger font size
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 20px rgba($color-primary-blue, 0.3); // Deeper shadow for the button
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        &:hover:not(:disabled) {
+            background-color: darken($color-primary-blue, 10%);
+            transform: translateY(-4px); // More prominent lift
+            box-shadow: 0 8px 25px rgba($color-primary-blue, 0.4);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: lighten($color-primary-blue, 20%);
+            transform: none;
+            box-shadow: none;
+        }
+
+        svg {
+            // No spin if it's not loading, only when isLoading is true
+            // The `spin` prop on FontAwesomeIcon handles this conditional animation.
+            font-size: 1.2em;
+        }
+    }
+
+    .footer-links {
+        margin-top: 35px; // More space below button
+        font-size: 0.95em;
+
+        a {
+            color: $color-primary-blue;
+            text-decoration: none;
+            margin: 0 12px; // More space between links
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+
+            &:hover {
+                color: darken($color-primary-blue, 15%);
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 30px;
+        max-width: 90%;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px $shadow-md;
+    }
+    .login-title {
+        font-size: 2.2em;
+        margin-bottom: 30px;
+        gap: 0.8rem;
+        &::after { width: 80px; height: 4px; }
+        .title-icon { font-size: 1.2em; }
+    }
+    .status-message {
+        padding: 1rem 1.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.9em;
+        svg { font-size: 1.1rem; }
+    }
+    .input-group {
+        margin-bottom: 25px;
+        label { margin-bottom: 10px; font-size: 0.95em; gap: 0.6rem; }
+        input { padding: 14px 18px; font-size: 1em; border-radius: 10px; }
+    }
+    .btn-login {
+        padding: 16px;
+        font-size: 1.1em;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba($color-primary-blue, 0.3);
+        &:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 20px rgba($color-primary-blue, 0.4); }
+    }
+    .footer-links {
+        margin-top: 30px;
+        font-size: 0.9em;
+        a { margin: 0 10px; }
+    }
+}
+
+@media (max-width: 576px) {
+    .login-container {
+        padding: 25px;
+        border-radius: 10px;
+        max-width: 95%;
+        box-shadow: 0 6px 20px $shadow-sm;
+        // Hide pseudo-elements on very small screens to keep it cleaner
+        &::before, &::after {
+            display: none;
+        }
+    }
+    .login-title {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+        gap: 0.6rem;
+        &::after { width: 60px; height: 3px; }
+        .title-icon { font-size: 1em; }
+    }
+    .status-message {
+        padding: 0.8rem 1.2rem;
+        margin-bottom: 1rem;
+        font-size: 0.85em;
+        svg { font-size: 1rem; }
+    }
+    .input-group {
+        margin-bottom: 20px;
+        label { margin-bottom: 8px; font-size: 0.9em; gap: 0.5rem; }
+        input { padding: 12px 15px; font-size: 0.95em; border-radius: 8px; }
+    }
+    .btn-login {
+        padding: 14px;
+        font-size: 1em;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba($color-primary-blue, 0.25);
+        &:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 15px rgba($color-primary-blue, 0.3); }
+    }
+    .footer-links {
+        margin-top: 25px;
+        font-size: 0.8em;
+        a { margin: 0 8px; }
+    }
+}
+
+// Basic animations (unchanged, but good to keep for reference)
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
